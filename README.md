@@ -1,6 +1,14 @@
 # next-strapi-starter
 
-Production-ready monorepo starter with **Next.js 15 App Router**, **Auth.js v5**, **Strapi 5**, **Kubb** type generation, and **shadcn/ui**.
+Production-ready monorepo starter with **Next.js 16 App Router**, **Auth.js v5**, **Strapi 5**, **Kubb** type generation, and **shadcn/ui**.
+
+## Quick start
+
+```bash
+npm create next-strapi-starter my-app
+```
+
+Or use as a **GitHub template** — click "Use this template" above.
 
 ## Stack
 
@@ -23,7 +31,6 @@ Production-ready monorepo starter with **Next.js 15 App Router**, **Auth.js v5**
 - Kubb code generation: typed axios clients auto-generated from Strapi OpenAPI schema
 - FSD (Feature-Sliced Design) folder structure in frontend
 - Strapi `users-permissions` + `documentation` plugins enabled
-- Deploy-ready: Vercel (frontend) + Railway (backend)
 
 ## Project structure
 
@@ -43,14 +50,17 @@ next-strapi-starter/
 - Node.js 20+
 - npm 10+
 
-### 1. Clone
+### 1. Scaffold
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/next-strapi-starter.git
-cd next-strapi-starter
-```
+# Recommended — via npm create
+npm create next-strapi-starter my-app
+cd my-app
 
-Or use as a GitHub template — click **"Use this template"** at the top of the repo.
+# Or clone directly
+git clone https://github.com/Imba-Sharik/next-strapi-starter.git my-app
+cd my-app
+```
 
 ### 2. Install dependencies
 
@@ -116,29 +126,6 @@ New types and axios clients appear in `src/shared/api/generated/`.
 
 Use generated clients with `strapiConfig(token?)` in application code.
 In `auth.ts` use raw `fetch` (Edge Runtime compatibility) + Kubb types.
-
-## Deploy
-
-### Frontend → Vercel
-
-1. Push to GitHub
-2. Import project on [vercel.com](https://vercel.com)
-3. Set **Root Directory** to `apps/frontend`
-4. Add environment variables:
-   - `AUTH_SECRET` — same as local
-   - `STRAPI_URL` — your Railway backend URL
-
-### Backend → Railway
-
-1. Create a new project on [railway.app](https://railway.app)
-2. Connect GitHub repo, set **Root Directory** to `apps/backend`
-3. Add environment variables from `apps/backend/.env.example`
-4. Add a **PostgreSQL** service and set:
-   ```
-   DATABASE_CLIENT=postgres
-   DATABASE_URL=${{Postgres.DATABASE_URL}}
-   DATABASE_SSL=true
-   ```
 
 ## Architecture decisions
 
