@@ -20,8 +20,7 @@ Or use as a **GitHub template** — click "Use this template" above.
 | API types | Kubb 4 (generates typed clients from OpenAPI) |
 | UI | shadcn/ui + Tailwind CSS v4 |
 | Package manager | npm workspaces |
-| DB (local) | SQLite |
-| DB (prod) | PostgreSQL (Railway) |
+| DB | SQLite |
 
 ## What's included
 
@@ -37,8 +36,8 @@ Or use as a **GitHub template** — click "Use this template" above.
 ```
 next-strapi-starter/
 ├── apps/
-│   ├── frontend/          # Next.js — Vercel
-│   └── backend/           # Strapi 5 — Railway
+│   ├── frontend/          # Next.js
+│   └── backend/           # Strapi 5
 ├── package.json           # npm workspaces root
 └── .gitignore
 ```
