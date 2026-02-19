@@ -20,7 +20,9 @@ Or use as a **GitHub template** — click "Use this template" above.
 | API types | Kubb 4 (generates typed clients from OpenAPI) |
 | UI | shadcn/ui + Tailwind CSS v4 |
 | Package manager | npm workspaces |
-| DB | SQLite |
+| DB | SQLite (local) / PostgreSQL (production) |
+| Backend hosting | Railway |
+| Frontend hosting | Vercel |
 
 ## What's included
 
@@ -88,13 +90,13 @@ node -e "console.log(require('crypto').randomBytes(16).toString('base64'))"
 **Frontend** (`apps/frontend/.env.local`):
 
 ```bash
-cp apps/frontend/.env.local.example apps/frontend/.env.local
+cp apps/frontend/.env.example apps/frontend/.env.local
 ```
 
 Generate `AUTH_SECRET`:
 
 ```bash
-npx auth secret
+openssl rand -base64 32
 ```
 
 ### 4. Run locally
@@ -125,6 +127,24 @@ New types and axios clients appear in `src/shared/api/generated/`.
 
 Use generated clients with `strapiConfig(token?)` in application code.
 In `auth.ts` use raw `fetch` (Edge Runtime compatibility) + Kubb types.
+
+## Deployment
+
+### Backend → Railway
+
+1. Create a new Railway project, add a **PostgreSQL** service
+2. Deploy `apps/backend` (Root Directory: `apps/backend`)
+3. Set environment variables (see `apps/backend/.env.example` Railway section):
+   - `DATABASE_URL`, `NODE_ENV=production`, secrets, `CORS_ORIGINS`, `URL`
+
+### Frontend → Vercel
+
+1. Import the repository, set **Root Directory**: `apps/frontend`
+2. Set **Install Command**: `npm install --prefix=../..`
+3. Set environment variables:
+   - `AUTH_SECRET` — generate with `openssl rand -base64 32`
+   - `STRAPI_URL` — your Railway Strapi URL
+4. After deploy, add the Vercel URL to `CORS_ORIGINS` on Railway
 
 ## Architecture decisions
 

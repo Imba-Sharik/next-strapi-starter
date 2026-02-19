@@ -11,6 +11,9 @@ export default defineConfig({
   output: {
     path: './src/shared/api/generated',
     clean: true,
+    extension: {
+      '.ts': '',
+    },
   },
   plugins: [
     pluginOas({ validate: true }),
