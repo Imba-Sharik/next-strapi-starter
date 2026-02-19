@@ -1,6 +1,6 @@
 # next-strapi-starter
 
-Production-ready monorepo starter with **Next.js 16 App Router**, **Auth.js v5**, **Strapi 5**, **Kubb** type generation, and **shadcn/ui**.
+Monorepo starter with **Next.js 16 App Router**, **Auth.js v5**, **Strapi 5**, **Kubb** type generation, and **shadcn/ui**.
 
 ## Quick start
 
