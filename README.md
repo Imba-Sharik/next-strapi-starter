@@ -20,6 +20,7 @@ Or use as a **GitHub template** — click "Use this template" above.
 | API types | Kubb 4 (generates typed clients from OpenAPI) |
 | UI | shadcn/ui + Tailwind CSS v4 |
 | Package manager | npm workspaces |
+| File storage | Cloudflare R2 (S3-compatible) |
 | DB | SQLite (local) / PostgreSQL (production) |
 | Backend hosting | Railway |
 | Frontend hosting | Vercel |
@@ -32,6 +33,7 @@ Or use as a **GitHub template** — click "Use this template" above.
 - Kubb code generation: typed axios clients auto-generated from Strapi OpenAPI schema
 - FSD (Feature-Sliced Design) folder structure in frontend
 - Strapi `users-permissions` + `documentation` plugins enabled
+- Cloudflare R2 upload provider pre-configured (just add env vars)
 
 ## Project structure
 
@@ -128,6 +130,24 @@ New types and axios clients appear in `src/shared/api/generated/`.
 Use generated clients with `strapiConfig(token?)` in application code.
 In `auth.ts` use raw `fetch` (Edge Runtime compatibility) + Kubb types.
 
+## Cloudflare R2 — file uploads
+
+The starter comes pre-configured with Cloudflare R2 as the Strapi upload provider.
+
+1. Create a bucket in [Cloudflare R2](https://dash.cloudflare.com) and enable **Public Access** (R2.dev subdomain)
+2. Create an **R2 API Token** (Object Read & Write)
+3. Fill in the `CF_*` variables in `apps/backend/.env`:
+
+```env
+CF_ACCESS_KEY_ID=your_access_key
+CF_SECRET_ACCESS_KEY=your_secret_key
+CF_ACCOUNT_ID=your_account_id
+CF_BUCKET=your_bucket_name
+CF_PUBLIC_URL=https://pub-xxx.r2.dev
+```
+
+Upload a file via Strapi Admin → Media Library to verify.
+
 ## Deployment
 
 ### Backend → Railway
@@ -136,6 +156,7 @@ In `auth.ts` use raw `fetch` (Edge Runtime compatibility) + Kubb types.
 2. Deploy `apps/backend` (Root Directory: `apps/backend`)
 3. Set environment variables (see `apps/backend/.env.example` Railway section):
    - `DATABASE_URL`, `NODE_ENV=production`, secrets, `CORS_ORIGINS`, `URL`
+   - `CF_*` variables (same as local) for R2 file uploads
 
 ### Frontend → Vercel
 
